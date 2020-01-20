@@ -16,4 +16,9 @@
 .name {
   display: inline-block;
   vertical-align: top;
+  cursor: pointer;
+}
+
+.name:hover {
+  font-weight: bold;
 }

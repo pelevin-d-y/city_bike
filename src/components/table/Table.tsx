@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import s from './Table.module.css'
+import { TableContext } from 'context/tableContext'
 
-import { Networks } from 'components/Networks/Networks'
+import Networks from 'components/Networks/Networks'
+import Stations from 'components/Stations/Stations'
 
 type TableProps = {} 
 
 export default function Table(p: TableProps) {
-  const BASE_URL = 'http://api.citybik.es/v2/'
-  console.log('p', p)
   const [stateNetworks, setNetwors] = useState([]);
+  const [stations, setSttions] = useState([])
+
+  const toggleStations = (stations) => {
+    setSttions(stations)
+  }
 
   useEffect(() => {
+    const {REACT_APP_BASE_URL} = process.env
+
     const loadNetworkLists = async () => {
-      const result = await fetch(`${BASE_URL}networks?fields=id,company`)
+      const result = await fetch(`${REACT_APP_BASE_URL}networks?fields=id,company`)
       const { networks } = await result.json()
-      console.log(networks)
       setNetwors(networks)
     }
     loadNetworkLists()
@@ -22,9 +28,16 @@ export default function Table(p: TableProps) {
 
   return (
     <div className="container">
-      <div className={s.table}>
-        <Networks networks={stateNetworks}   />
-      </div>
+      <TableContext.Provider value={{stations, toggleStations}}>
+        <div className={s.table}>
+          <div className={s.column}>
+            <Networks networks={stateNetworks} />
+          </div>
+          <div className={s.column}>
+            <Stations />
+          </div>
+        </div>
+      </ TableContext.Provider>
     </div>
   )
 }
