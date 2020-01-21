@@ -12,8 +12,15 @@ export default function Table(p: TableProps) {
   const [stateNetworks, setStateNetwors] = useState([])
   const [networksLoader, toggleLoader] = useState(true)
   const [stations, setSttions] = useState([])
-  const [stationLoader, toggleStationLoader] = useState(false)
-  const toggleStations = (stations) => {
+  const [stationLoader, toggleStationLoader] = useState(true)
+  const loadStations =  async (id) => {
+    const {REACT_APP_BASE_URL} = process.env
+
+    toggleStationLoader(true)
+    const response = await fetch(`${REACT_APP_BASE_URL}/networks/${id}`)
+    const data = await response.json()
+    const stations = data.network.stations
+    toggleStationLoader(false)
     setSttions(stations)
   }
 
@@ -24,8 +31,8 @@ export default function Table(p: TableProps) {
       try {
         const result = await fetch(`${REACT_APP_BASE_URL}networks?fields=id,company`)
         const { networks } = await result.json()
-        toggleLoader(false)
         setStateNetwors(networks)
+        toggleLoader(false)
       } catch(e) {
         console.log('Load Networks Error ==>', e)
       }
@@ -36,7 +43,7 @@ export default function Table(p: TableProps) {
 
   return (
     <div className="container">
-      <TableContext.Provider value={{stations, toggleStations, stationLoader, toggleStationLoader}}>
+      <TableContext.Provider value={{stations, loadStations, stationLoader, toggleStationLoader}}>
         <div className={s.table}>
           <div className={s.column}>
             {networksLoader ? 

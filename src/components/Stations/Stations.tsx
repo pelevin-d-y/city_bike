@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { TableContext } from 'context/tableContext'
 
 export default function Staions(): ReactElement {
