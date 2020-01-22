@@ -11,17 +11,20 @@ type TableProps = {}
 export default function Table(p: TableProps) {
   const [stateNetworks, setStateNetwors] = useState([])
   const [networksLoader, toggleLoader] = useState(true)
-  const [stations, setSttions] = useState([])
+  const [stations, setStations] = useState([])
   const [stationLoader, toggleStationLoader] = useState(true)
-  const loadStations =  async (id) => {
-    const {REACT_APP_BASE_URL} = process.env
+  const [activeNetwork, setActiveNetwork] = useState(null)
+  const [likeStantions, setLikeStantions] = useState([])
 
+  const loadStations = async (id) => {
+    const {REACT_APP_BASE_URL} = process.env
     toggleStationLoader(true)
     const response = await fetch(`${REACT_APP_BASE_URL}/networks/${id}`)
     const data = await response.json()
     const stations = data.network.stations
+    setActiveNetwork(id)
     toggleStationLoader(false)
-    setSttions(stations)
+    setStations(stations)
   }
 
   useEffect(() => {
@@ -31,6 +34,7 @@ export default function Table(p: TableProps) {
       try {
         const result = await fetch(`${REACT_APP_BASE_URL}networks?fields=id,company`)
         const { networks } = await result.json()
+        setActiveNetwork(networks[0].id)
         setStateNetwors(networks)
         toggleLoader(false)
       } catch(e) {
@@ -43,13 +47,13 @@ export default function Table(p: TableProps) {
 
   return (
     <div className="container">
-      <TableContext.Provider value={{stations, loadStations, stationLoader, toggleStationLoader}}>
+      <TableContext.Provider value={{stations, loadStations, stationLoader, toggleStationLoader, likeStantions, setLikeStantions}}>
         <div className={s.table}>
           <div className={s.column}>
             {networksLoader ? 
               <Loader /> : 
-              <Networks networks={stateNetworks} 
-            />}
+              <Networks networks={stateNetworks} activeNetwork={activeNetwork}/>
+            }
           </div>
           <div className={s.column}>
             {stationLoader ?
