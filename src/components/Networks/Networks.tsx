@@ -15,7 +15,6 @@ export default function Networks(p: Props): ReactElement {
 
   useEffect(() => {
     const firstNetwork = p.networks[0]
-    console.log('aaaaa')
     if (firstNetwork?.id) {
       context.current.loadStations(p.networks[0].id)
     }

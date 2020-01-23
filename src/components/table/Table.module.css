@@ -1,14 +1,22 @@
+.header,
+.name {
+  padding: 10px 0;
+  font-size: 24px;
+  text-align: center;
+}
+
 .table {
   display: flex;
   flex-flow: row nowrap;
 
-  min-height: 100px;
+  height: 80vh;
   width: 100%;
   border: 1px solid #000000;
 }
 
 .column {
   width: 50%;
+  overflow: auto;
 }
 
 .column:first-child {

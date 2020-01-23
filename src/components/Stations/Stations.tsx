@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { TableContext } from 'context/tableContext'
 import s from './Stations.module.css'
 
@@ -7,10 +7,8 @@ import { ReactComponent as LikeActive } from 'assets/like_active.svg'
 
 export default function Staions(): ReactElement {
   const { stations, likeStantions, setLikeStantions } = useContext(TableContext)
-  const [isLike, setIslike] = useState(false)
 
   const handleClick = (name) => {
-    console.log('likeStantions', likeStantions)
     setLikeStantions((likeStations) => {
       let result
 
