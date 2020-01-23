@@ -9,20 +9,20 @@ import { ReactComponent as Loader } from 'assets/loader.svg'
 
 export default function Table() {
   const [stateNetworks, setStateNetwors] = useState([])
-  const [networksLoader, toggleLoader] = useState(true)
-  const [stations, setStations] = useState([])
-  const [stationLoader, toggleStationLoader] = useState(true)
-  const [activeNetwork, setActiveNetwork] = useState(null)
+  const [stateNetworksLoader, setStateNetworksLoader] = useState(true)
+  const [stateStations, stateSetStations] = useState([])
+  const [stateStationLoader, setStateStationLoader] = useState(true)
+  const [stateActiveNetwork, setStateActiveNetwork] = useState(null)
   const [likeStantions, setLikeStantions] = useState([])
 
   const loadStations = async (id) => {
     try {
-      toggleStationLoader(true)
+      setStateStationLoader(true)
       const data = await fetchData(`/networks/${id}`)
       const stations = data.network.stations
-      setActiveNetwork(id)
-      toggleStationLoader(false)
-      setStations(stations)
+      setStateActiveNetwork(id)
+      setStateStationLoader(false)
+      stateSetStations(stations)
     } catch(e) {
       console.log('Load Stations Error ==>', e)
     }
@@ -33,9 +33,9 @@ export default function Table() {
       try {
         const data = await fetchData(`networks?fields=id,company`)
         const { networks } = data
-        setActiveNetwork(networks[0].id)
+        setStateActiveNetwork(networks[0].id)
         setStateNetwors(networks)
-        toggleLoader(false)
+        setStateNetworksLoader(false)
       } catch(e) {
         console.log('Load Networks Error ==>', e)
       }
@@ -44,26 +44,35 @@ export default function Table() {
     loadNetworkLists()
   }, []);
 
+  const contextValue = {
+    stateStations, 
+    loadStations, 
+    stateStationLoader, 
+    setStateStationLoader, 
+    likeStantions, 
+    setLikeStantions
+  }
+
   return (
     <div className="container">
       <div className={s.header}>
         <div className={s.name}>
-          Network: {activeNetwork}
+          Network: {stateActiveNetwork}
         </div>
         <div className={s.count}>
-          Station count: {stations.length}
+          Station count: {stateStations.length}
         </div>
       </div>
-      <TableContext.Provider value={{stations, loadStations, stationLoader, toggleStationLoader, likeStantions, setLikeStantions}}>
+      <TableContext.Provider value={contextValue}>
         <div className={s.table}>
           <div className={s.column}>
-            {networksLoader ? 
+            {stateNetworksLoader ? 
               <Loader /> : 
-              <Networks networks={stateNetworks} activeNetwork={activeNetwork}/>
+              <Networks networks={stateNetworks} activeNetwork={stateActiveNetwork}/>
             }
           </div>
           <div className={s.column}>
-            {stationLoader ?
+            {stateStationLoader ?
               <Loader /> :
               <Stations /> 
             } 

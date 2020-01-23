@@ -6,7 +6,7 @@ import { ReactComponent as LikeDisable } from 'assets/like_disable.svg'
 import { ReactComponent as LikeActive } from 'assets/like_active.svg'
 
 export default function Staions(): ReactElement {
-  const { stations, likeStantions, setLikeStantions } = useContext(TableContext)
+  const { stateStations, likeStantions, setLikeStantions } = useContext(TableContext)
 
   const handleClick = (name) => {
     setLikeStantions((likeStations) => {
@@ -29,13 +29,13 @@ export default function Staions(): ReactElement {
   }
 
   const renderStations = () => {
-    if (stations.length === 0) {
+    if (stateStations.length === 0) {
       return <div className={s.item}>
         Station not found 
       </div>
     }
 
-    return stations.map(station => {
+    return stateStations.map(station => {
       const { name } = station
 
       return (
