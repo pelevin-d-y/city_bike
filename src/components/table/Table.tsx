@@ -1,30 +1,35 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import s from './Table.module.css'
+import { connect } from 'react-redux'
+import { setNetworks } from 'store/actions'
 
-import { Networks } from 'components/Networks/Networks'
+import Networks from 'components/Networks/Networks'
 
-type TableProps = {} 
-
-export default function Table(p: TableProps) {
+const Table = (p) => {
   const BASE_URL = 'http://api.citybik.es/v2/'
-  console.log('p', p)
-  const [stateNetworks, setNetwors] = useState([]);
 
   useEffect(() => {
-    const loadNetworkLists = async () => {
+    const loadNetworkList = async () => {
       const result = await fetch(`${BASE_URL}networks?fields=id,company`)
       const { networks } = await result.json()
-      console.log(networks)
-      setNetwors(networks)
+      p.setNetworks(networks)
     }
-    loadNetworkLists()
-  }, []);
+    loadNetworkList()
+  }, [p]);
 
   return (
     <div className="container">
       <div className={s.table}>
-        <Networks networks={stateNetworks}   />
+        <Networks />
       </div>
     </div>
   )
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setNetworks: (networks: []) => dispatch(setNetworks(networks))
+  }
+}
+
+export default connect(() => ({}), mapDispatchToProps)(Table)

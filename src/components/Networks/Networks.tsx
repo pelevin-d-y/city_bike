@@ -2,13 +2,8 @@ import React, { ReactElement } from 'react'
 import s from './Networks.module.css'
 import { ReactComponent as LikeDisable } from 'assets/like_disable.svg'
 import { connect } from 'react-redux'
-// import { ReactComponent as LikeActive } from 'assets/like_active.svg'
 
-interface Props {
-  networks: any[]
-}
-
-const Networks = (p: Props): ReactElement => {
+const Networks = (p): ReactElement => {
   return (
     <div>
       {
@@ -29,15 +24,12 @@ const Networks = (p: Props): ReactElement => {
   )
 }
 
-// const mapStateToProps = (state, ownProps) => ({
-//   active: ownProps.filter === state.visibilityFilter
-// })
-
-// const mapDispatchToProps = (dispatch, ownProps) => ({
-//   onClick: () => dispatch(setVisibilityFilter(ownProps.filter))
-// })
+const mapStateToProps = (store) => {
+  return {
+    networks: store.networks
+  }
+}
 
 export default connect(
-  // mapStateToProps,
-  // mapDispatchToProps
+  mapStateToProps
 )(Networks)

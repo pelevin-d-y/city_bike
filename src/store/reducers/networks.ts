@@ -1,4 +1,4 @@
-const setNetworks = (state = [], action:{type, networks}) => {
+const setNetworks = (state = [], action:{type: string, networks: []}) => {
   switch (action.type) {
     case 'SET_NETWORKS':
       return action.networks
