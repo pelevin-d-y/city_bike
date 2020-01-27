@@ -8,9 +8,9 @@ import { ReactComponent as LikeActive } from 'assets/like_active.svg'
 export default function Staions(): ReactElement {
   const { stateStations, likeStantions, setLikeStantions } = useContext(TableContext)
 
-  const handleClick = (name) => {
-    setLikeStantions((likeStations) => {
-      let result
+  const handleClick = (name: string) => {
+    setLikeStantions((likeStations: string[]) => {
+      let result: string[]
 
       if (likeStations.includes(name)) {
         result = likeStations.filter(el => el !== name)
@@ -21,7 +21,7 @@ export default function Staions(): ReactElement {
     })
   }
 
-  const renderLike = (name) => {
+  const renderLike = (name: string) => {
     if (likeStantions.includes(name)) {
       return <LikeActive />
     }
@@ -35,7 +35,7 @@ export default function Staions(): ReactElement {
       </div>
     }
 
-    return stateStations.map(station => {
+    return stateStations.map((station: {name: string})  => {
       const { name } = station
 
       return (

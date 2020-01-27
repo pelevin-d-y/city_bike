@@ -9,7 +9,7 @@ interface Props {
 export default function Networks(p: Props): ReactElement {
   const context = useRef(useContext(TableContext))
 
-  const handleLoad = (id) => {
+  const handleLoad = (id: string) => {
     context.current.loadStations(id)
   }
 

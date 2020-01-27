@@ -15,7 +15,7 @@ export default function Table() {
   const [stateActiveNetwork, setStateActiveNetwork] = useState(null)
   const [likeStantions, setLikeStantions] = useState([])
 
-  const loadStations = async (id) => {
+  const loadStations = async (id: string) => {
     try {
       setStateStationLoader(true)
       const data = await fetchData(`/networks/${id}`)

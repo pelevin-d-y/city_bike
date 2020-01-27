@@ -5,13 +5,13 @@ import classNames from 'classnames'
 interface NetworkProps {
   id: string
   isActive: boolean
-  handleLoad: (id) => void
+  handleLoad: (id: string) => void
 }
 
 export default function Network(p: NetworkProps): ReactElement {
   const { id, handleLoad } = p
   
-  const handleClick = (id) => {
+  const handleClick = (id: string) => {
     handleLoad(id)
   }
 
