@@ -1,4 +1,24 @@
+.header,
+.name {
+  padding: 10px 0;
+  font-size: 24px;
+  text-align: center;
+}
+
 .table {
+  display: flex;
+  flex-flow: row nowrap;
+
+  height: 80vh;
   width: 100%;
   border: 1px solid #000000;
+}
+
+.column {
+  width: 50%;
+  overflow: auto;
+}
+
+.column:first-child {
+  border-right: 1px solid #000000;
 }

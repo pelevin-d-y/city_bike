@@ -1,22 +1,18 @@
 import React, { ReactElement } from 'react'
 import s from './Networks.module.css'
-import { ReactComponent as LikeDisable } from 'assets/like_disable.svg'
 import { connect } from 'react-redux'
+
+import Network from 'components/Network/Network'
 
 const Networks = (p): ReactElement => {
   return (
     <div>
       {
         p.networks.map(network => {
+          const { id } = network
+
           return (
-            <div className={s.item} key={network.id}>
-              <div className={s.like}>
-                { <LikeDisable /> }
-              </div>
-              <div className={s.name}>  
-                {network.id}
-              </div>
-            </div>
+            <Network id={id} isActive={false} key={id}/>
           )
         })
       }

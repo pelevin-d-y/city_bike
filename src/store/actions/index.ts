@@ -3,7 +3,17 @@ export const setNetworks = networks => ({
   networks
 })
 
-export const setLikes = networkId => ({
+export const setStations = stations => ({
+  type: 'SET_STATIONS',
+  stations
+})
+
+export const setLikes = networksId => ({
   type: 'SET_LIKES',
-  networkId
+  networksId
+})
+
+export const toggleLoader = isActive => ({
+  type: 'TOGGLE_LOADER',
+  isActive
 })

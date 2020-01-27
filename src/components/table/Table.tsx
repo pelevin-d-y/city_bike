@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { setNetworks } from 'store/actions'
 
 import Networks from 'components/Networks/Networks'
+import Stations from 'components/Stations/Stations'
+import { ReactComponent as Loader } from 'assets/loader.svg'
 
 const Table = (p) => {
   const BASE_URL = 'http://api.citybik.es/v2/'
@@ -19,11 +21,23 @@ const Table = (p) => {
 
   return (
     <div className="container">
-      <div className={s.table}>
-        <Networks />
-      </div>
+       <div className={s.table}>
+          <div className={s.column}>
+            <Networks />
+          </div>
+          <div className={s.column}>
+            <Stations /> 
+
+          </div>
+        </div>
     </div>
   )
+}
+
+const mapStateToProps = (state) => {
+  return {
+    networksLoader: state
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
