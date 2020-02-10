@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react'
-import s from './Networks.module.css'
 import { connect } from 'react-redux'
 
 import Network from 'components/Network/Network'

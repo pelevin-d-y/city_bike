@@ -2,21 +2,19 @@ import React, { ReactElement } from 'react'
 import s from './Network.module.css'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
-import { setStations } from 'store/actions'
-import fetchData from 'requests'
+import { fetchStantions } from 'store/actions'
 
 interface NetworkProps {
   id: string
   isActive: boolean
-  setStations: (stations: []) => void
+  fetchStantions: (id: string) => void
 }
 
 const Network = (p:NetworkProps): ReactElement => {
   const { id } = p
   
   const handleClick = async (id) => {
-    const data = await fetchData(`/networks/${id}`)
-    p.setStations(data.network.stations)
+    p.fetchStantions(`/networks/${id}`)
   }
 
   const nameClasses = classNames({
@@ -35,7 +33,7 @@ const Network = (p:NetworkProps): ReactElement => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setStations: (stations: []) => dispatch(setStations(stations))
+    fetchStantions: (id: string) => dispatch(fetchStantions(id))
   }
 }
 

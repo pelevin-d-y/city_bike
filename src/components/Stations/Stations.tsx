@@ -58,7 +58,6 @@ const stations = (p): ReactElement => {
 }
 
 const mapStateToProps = (store) => {
-  console.log('store', store)
   return {
     stations: store.stations
   }
