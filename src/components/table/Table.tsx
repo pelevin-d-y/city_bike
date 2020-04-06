@@ -8,24 +8,18 @@ import Stations from 'components/Stations/Stations'
 import { ReactComponent as Loader } from 'assets/loader.svg'
 
 const Table = (p) => {
-  const BASE_URL = 'http://api.citybik.es/v2/'
-
   useEffect(() => {
-    const loadNetworkList = async () => {
-      p.fetchNetworks('networks?fields=id,company')
-    }
-    loadNetworkList()
-  }, [p]);
+    p.fetchNetworks('networks?fields=id,company')
+  });
 
   return (
     <div className="container">
        <div className={s.table}>
           <div className={s.column}>
-            <Networks />
+            { (p.networks.length === 0) ? <Loader /> : <Networks /> }
           </div>
           <div className={s.column}>
             <Stations /> 
-
           </div>
         </div>
     </div>
@@ -38,4 +32,10 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(() => ({}), mapDispatchToProps)(Table)
+const mapStateToProps = (store) => {
+  return {
+    networks: store.networks
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table)
