@@ -7,19 +7,19 @@ import Networks from 'components/Networks/Networks'
 import Stations from 'components/Stations/Stations'
 import { ReactComponent as Loader } from 'assets/loader.svg'
 
-const Table = (p) => {
+const Table = ({fetchNetworks, networks, isLoader}) => {
   useEffect(() => {
-    p.fetchNetworks('networks?fields=id,company')
-  });
+    fetchNetworks('networks?fields=id,company')
+  }, [fetchNetworks]);
 
   return (
     <div className="container">
        <div className={s.table}>
           <div className={s.column}>
-            { (p.networks.length === 0) ? <Loader /> : <Networks /> }
+            { (networks.length === 0) ? <Loader /> : <Networks /> }
           </div>
           <div className={s.column}>
-            <Stations /> 
+            { isLoader ? <Loader /> : <Stations /> }
           </div>
         </div>
     </div>
@@ -34,7 +34,9 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (store) => {
   return {
-    networks: store.networks
+    networks: store.networks,
+    isLoader: store.stations.isLoader,
+    isActive: store.stations.isActive
   }
 }
 

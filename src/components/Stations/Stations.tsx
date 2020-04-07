@@ -59,7 +59,7 @@ const stations = (p): ReactElement => {
 
 const mapStateToProps = (store) => {
   return {
-    stations: store.stations
+    stations: store.stations.stations
   }
 }
 
